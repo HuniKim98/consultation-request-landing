@@ -1,5 +1,6 @@
 {
   "name": "consultation-landing-page",
   "version": 2,
-  "buildCommand": "npm run build"
+  "buildCommand": "npm run build",
+  "public": false
 }

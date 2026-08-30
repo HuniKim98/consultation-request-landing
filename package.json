@@ -5,12 +5,10 @@
   "description": "SK Escape Consultation Request Landing Page",
   "main": "index.html",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "python3 -m http.server 5173",
+    "build": "mkdir -p dist && cp index.html dist/index.html && cp -r api dist/api 2>/dev/null || true",
+    "preview": "python3 -m http.server 5173"
   },
   "dependencies": {},
-  "devDependencies": {
-    "vite": "^5.0.0"
-  }
+  "devDependencies": {}
 }
