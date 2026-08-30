@@ -1,9 +1,5 @@
 {
   "name": "consultation-landing-page",
   "version": 2,
-  "buildCommand": "npm run build",
-  "env": {
-    "TELEGRAM_BOT_TOKEN": "@TELEGRAM_BOT_TOKEN",
-    "TELEGRAM_CHAT_ID": "@TELEGRAM_CHAT_ID"
-  }
+  "buildCommand": "npm run build"
 }
