@@ -91,39 +91,20 @@ export default async function handler(req, res) {
  * Format consultation data into Telegram message
  */
 function formatTelegramMessage(data) {
-  const { name, phone, amount, content, message, timestamp } = data;
+  const { name, phone, timestamp } = data;
 
-  // Parse amount display text
-  const amountMap = {
-    '5000': '5천만원 이하',
-    '5000_10000': '5천만원 ~ 1억',
-    '10000_30000': '1억 ~ 3억',
-    '30000_50000': '3억 ~ 5억',
-    '50000': '5억 이상',
-  };
-
-  // Parse content display text
-  const contentMap = {
-    'land': '토지 투자',
-    'development': '개발 프로젝트',
-    'consultation': '투자 상담',
-    'etc': '기타',
-  };
-
-  const amountText = amountMap[amount] || '미입력';
-  const contentText = contentMap[content] || '미입력';
-
-  // Format timestamp
+  // Format timestamp to Korean date format
   const date = new Date(timestamp);
-  const formattedTime = date.toLocaleString('ko-KR', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const period = date.getHours() < 12 ? '오전' : '오후';
+  const displayHours = date.getHours() % 12 || 12;
 
-  // Build message
+  const formattedTime = `${year}. ${month}. ${day}. ${period} ${displayHours}:${minutes}`;
+
   const msg = `🔔 새로운 상담 신청
 
 ━━━━━━━━━━━━━━━━━━
@@ -133,15 +114,6 @@ ${name}
 
 📱 연락처
 ${phone}
-
-💰 투자 가능 금액
-${amountText}
-
-📋 상담 희망 내용
-${contentText}
-
-📝 기타 문의
-${message || '없음'}
 
 🕐 접수시간
 ${formattedTime}
