@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SK Escape 무료 상담 신청 - 토지 투자 전문</title>
+  <meta name="description" content="SK Escape에서 제공하는 토지 투자 무료 상담 신청 서비스입니다. 전문가 상담, 컨설팅료 무료">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="SK Escape 무료 상담 신청">
+  <meta property="og:description" content="토지 투자 전문 무료 상담">
+  <meta property="og:type" content="website">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0B1F35;
+      color: #F4F1EA;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #0B1F35 0%, #132B45 100%);
+      padding: 60px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid #2A4260;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 700;
+      color: #C9A45C;
+      margin-bottom: 24px;
+      letter-spacing: 2px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      font-size: 14px;
+      color: #AFBBC9;
+      margin-bottom: 8px;
+    }
+
+    /* Stats Section */
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 40px 24px;
+      background: #132B45;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #C9A45C;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #AFBBC9;
+    }
+
+    /* Form Section */
+    .form-section {
+      padding: 44px 24px;
+      background: #0B1F35;
+    }
+
+    .form-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #F4F1EA;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 14px;
+      background: #132B45;
+      border: 1px solid #2A4260;
+      color: #F4F1EA;
+      font-size: 16px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #C9A45C;
+    }
+
+    .form-group input[type="checkbox"] {
+      width: auto;
+      accent-color: #C9A45C;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 26px;
+      cursor: pointer;
+    }
+
+    .checkbox-group input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      color: #F4F1EA;
+      line-height: 1.6;
+    }
+
+    .checkbox-label .sub-text {
+      display: block;
+      font-size: 12px;
+      color: #8B9AAB;
+      line-height: 1.7;
+      margin-top: 4px;
+    }
+
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 62px;
+      background: #C9A45C;
+      border: none;
+      color: #0B1F35;
+      font-size: 17px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      margin-bottom: 14px;
+      transition: transform 0.2s, background 0.2s;
+      border-radius: 4px;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.99);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .submit-btn.loading::after {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #0B1F35;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .form-note {
+      font-size: 13px;
+      color: #AFBBC9;
+      text-align: center;
+      margin: 0;
+    }
+
+    .form-note strong {
+      color: #C9A45C;
+      font-weight: 700;
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .success-message.show {
+      display: flex;
+    }
+
+    .success-content {
+      background: #132B45;
+      border: 1px solid #2A4260;
+      border-radius: 8px;
+      padding: 40px 24px;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .success-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .success-content p {
+      font-size: 14px;
+      color: #AFBBC9;
+      margin-bottom: 24px;
+    }
+
+    .success-content button {
+      background: #C9A45C;
+      border: none;
+      color: #0B1F35;
+      padding: 12px 32px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .success-content button:hover {
+      background: #D4B166;
+    }
+
+    /* Error Message */
+    .error-message {
+      display: none;
+      background: #5c2b2e;
+      border: 1px solid #8B3A3A;
+      border-radius: 4px;
+      color: #FF8A80;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background: #081726;
+      padding: 44px 24px 110px;
+      font-size: 12px;
+      color: #6B7A8F;
+      line-height: 1.8;
+    }
+
+    .footer .company-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #F4F1EA;
+      margin-bottom: 24px;
+    }
+
+    .footer p {
+      margin-bottom: 18px;
+      max-width: 34em;
+    }
+
+    .footer .copyright {
+      font-size: 11px;
+      margin-top: 18px;
+    }
+
+    /* Sticky CTA Bar */
+    .sticky-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: translateY(120%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .sticky-bar.show {
+      transform: translateY(0);
+    }
+
+    .sticky-bar-content {
+      max-width: 640px;
+      width: 100%;
+      background: rgba(11, 31, 53, 0.96);
+      border-top: 1px solid #2A4260;
+      padding: 12px 24px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    .sticky-bar-content button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      background: #C9A45C;
+      border: none;
+      color: #0B1F35;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .sticky-bar-content button:active {
+      transform: scale(0.99);
+    }
+
+    .sticky-bar-content button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .hero {
+        padding: 40px 16px 30px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .hero h1 {
+        font-size: 22px;
+      }
+
+      .form-section,
+      .stats,
+      .footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .stats {
+        gap: 16px;
+      }
+
+      .stat-number {
+        font-size: 24px;
+      }
+
+      .submit-btn {
+        min-height: 52px;
+        font-size: 15px;
+      }
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="logo">SK</div>
+      <h1>무료 상담 신청</h1>
+      <p>토지 투자 전문가와 1:1 상담</p>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number" id="stat-clients">15</div>
+        <div class="stat-label">년 경력</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="stat-projects">21,362</div>
+        <div class="stat-label">건 이상 상담</div>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section" id="form-section">
+      <h2>상담 신청</h2>
+
+      <div class="error-message" id="error-message"></div>
+
+      <form id="consultation-form">
+        <div class="form-group">
+          <label for="name">이름 *</label>
+          <input type="text" id="name" name="name" placeholder="성명을 입력하세요" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">연락처 *</label>
+          <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">투자 가능 금액</label>
+          <select id="amount" name="amount">
+            <option value="">선택하세요</option>
+            <option value="5000">5천만원 이하</option>
+            <option value="5000_10000">5천만원 ~ 1억</option>
+            <option value="10000_30000">1억 ~ 3억</option>
+            <option value="30000_50000">3억 ~ 5억</option>
+            <option value="50000">5억 이상</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="content">상담 희망 내용</label>
+          <select id="content" name="content">
+            <option value="">선택하세요</option>
+            <option value="land">토지 투자</option>
+            <option value="development">개발 프로젝트</option>
+            <option value="consultation">투자 상담</option>
+            <option value="etc">기타</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">기타 문의</label>
+          <textarea id="message" name="message" placeholder="추가로 궁금한 사항을 입력하세요" rows="4"></textarea>
+        </div>
+
+        <label class="checkbox-group">
+          <input type="checkbox" id="agree" name="agree" required>
+          <span class="checkbox-label">
+            [필수] 개인정보 수집 · 이용 동의
+            <span class="sub-text">수집 항목 · 성명, 연락처 | 이용 목적 · 상담 회신 | 보유 기간 · 상담 종료 후 2년</span>
+          </span>
+        </label>
+
+        <button type="submit" class="submit-btn" id="submit-btn">무료 상담 신청하기</button>
+        <p class="form-note">상담료 · 자료비 · 컨설팅비 <strong>무료</strong> | 투자를 권하지 않습니다</p>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p class="company-name">THE SK</p>
+      <p>법인명 주식회사 더에스케이파트너스 | 대표자 김현구<br>사업자등록번호 830-81-03687 | 법인등록번호 130111-0129868</p>
+      <p>※ 토지는 환금성이 낮고 시세는 변동될 수 있으며, 과거 통계·개발 계획은 향후 가치를 보장하지 않습니다.</p>
+      <p class="copyright">© THE SK. All rights reserved.</p>
+    </div>
+  </div>
+
+  <!-- Sticky CTA Bar -->
+  <div class="sticky-bar" id="sticky-bar">
+    <div class="sticky-bar-content">
+      <button type="button" id="sticky-btn">무료 상담 신청하기</button>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="success-message" id="success-message">
+    <div class="success-content">
+      <div class="success-icon">✓</div>
+      <h3>상담 신청 완료</h3>
+      <p>감사합니다! 빠른 시간 내에 연락드리겠습니다.</p>
+      <button type="button" id="success-close">닫기</button>
+    </div>
+  </div>
+
+  <script>
+    // Form handling
+    const form = document.getElementById('consultation-form');
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const agreeCheckbox = document.getElementById('agree');
+    const submitBtn = document.getElementById('submit-btn');
+    const stickyBtn = document.getElementById('sticky-btn');
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
+    const successClose = document.getElementById('success-close');
+    const stickyBar = document.getElementById('sticky-bar');
+    const formSection = document.getElementById('form-section');
+    const stickyBarContent = document.querySelector('.sticky-bar-content');
+
+    // Phone number formatting
+    function formatPhone(value) {
+      const digits = value.replace(/\D/g, '').slice(0, 11);
+      if (digits.length < 4) return digits;
+      if (digits.length < 8) return digits.slice(0, 3) + '-' + digits.slice(3);
+      return digits.slice(0, 3) + '-' + digits.slice(3, 7) + '-' + digits.slice(7);
+    }
+
+    phoneInput.addEventListener('input', (e) => {
+      e.target.value = formatPhone(e.target.value);
+    });
+
+    // Show/hide error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.add('show');
+    }
+
+    function hideError() {
+      errorMessage.classList.remove('show');
+    }
+
+    // Form submission
+    async function handleSubmit(e) {
+      e.preventDefault();
+      hideError();
+
+      // Validation
+      if (!nameInput.value.trim()) {
+        showError('이름을 입력해주세요');
+        nameInput.focus();
+        return;
+      }
+
+      if (!phoneInput.value.trim()) {
+        showError('연락처를 입력해주세요');
+        phoneInput.focus();
+        return;
+      }
+
+      if (!agreeCheckbox.checked) {
+        showError('개인정보 수집·이용 동의가 필요합니다');
+        agreeCheckbox.focus();
+        return;
+      }
+
+      // Prepare data
+      const data = {
+        name: nameInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        amount: document.getElementById('amount').value,
+        content: document.getElementById('content').value,
+        message: document.getElementById('message').value.trim(),
+        agree: agreeCheckbox.checked,
+        timestamp: new Date().toISOString(),
+      };
+
+      // Submit
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = '신청 중...';
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+          // Show success message
+          successMessage.classList.add('show');
+
+          // Reset form
+          form.reset();
+
+          // Scroll to top
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          showError(result.message || '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showError('일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = '무료 상담 신청하기';
+      }
+    }
+
+    form.addEventListener('submit', handleSubmit);
+    stickyBtn.addEventListener('click', () => {
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    successClose.addEventListener('click', () => {
+      successMessage.classList.remove('show');
+    });
+
+    // Sticky bar visibility
+    function updateStickyBar() {
+      const formRect = formSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Hide sticky bar if form is in view
+      if (formRect.top < windowHeight * 0.7) {
+        stickyBar.classList.remove('show');
+      } else {
+        stickyBar.classList.add('show');
+      }
+    }
+
+    window.addEventListener('scroll', updateStickyBar);
+    updateStickyBar();
+
+    // Number animation
+    function animateNumber(element, target, duration = 1100) {
+      const start = performance.now();
+      const startValue = 0;
+
+      const tick = (now) => {
+        const progress = Math.min(1, (now - start) / duration);
+        const value = Math.round(startValue + (target - startValue) * progress);
+        element.textContent = value.toLocaleString('en-US');
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      };
+
+      requestAnimationFrame(tick);
+    }
+
+    // Animate stats on page load
+    window.addEventListener('load', () => {
+      const statClients = document.getElementById('stat-clients');
+      const statProjects = document.getElementById('stat-projects');
+
+      if (statClients.textContent !== '15') {
+        animateNumber(statClients, 15);
+      }
+
+      if (statProjects.textContent !== '21362') {
+        animateNumber(statProjects, 21362);
+      }
+    });
+  </script>
+</body>
+</html>
