@@ -24,8 +24,17 @@ export default async function handler(req, res) {
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-      console.error('Missing Telegram environment variables');
+    // Validate environment variables
+    if (!TELEGRAM_BOT_TOKEN) {
+      console.error('[Telegram] ERROR: TELEGRAM_BOT_TOKEN is not defined in environment variables');
+      return res.status(500).json({
+        success: false,
+        message: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+      });
+    }
+
+    if (!TELEGRAM_CHAT_ID) {
+      console.error('[Telegram] ERROR: TELEGRAM_CHAT_ID is not defined in environment variables');
       return res.status(500).json({
         success: false,
         message: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
@@ -42,24 +51,27 @@ export default async function handler(req, res) {
       timestamp,
     });
 
+    console.log('[Telegram] Sending message to Telegram API...');
+
     // Send to Telegram
-    const telegramResponse = await sendToTelegram(
+    const telegramResult = await sendToTelegram(
       TELEGRAM_BOT_TOKEN,
       TELEGRAM_CHAT_ID,
       telegramMessage
     );
 
-    if (!telegramResponse.ok) {
-      console.error('Telegram API error:', telegramResponse);
-      // Still consider it a success for the user, but log the error
+    if (telegramResult.success) {
+      console.log('[Telegram] SUCCESS: Message sent to Telegram');
+    } else {
+      console.error('[Telegram] FAILED:', telegramResult.error);
     }
 
-    // Log submission (optional - for your own records)
-    console.log('[Consultation] New submission:', {
-      name,
-      phone,
+    // Log submission
+    console.log('[Consultation] New submission received:', {
+      name: name.substring(0, 2) + '*'.repeat(Math.max(0, name.length - 2)),
+      phone: phone.replace(/\d(?=\d{4})/g, '*'),
       timestamp,
-      telegramSent: telegramResponse.ok,
+      telegramSent: telegramResult.success,
     });
 
     return res.status(200).json({
@@ -67,7 +79,7 @@ export default async function handler(req, res) {
       message: '상담 신청이 접수되었습니다. 빠른 시간 내에 연락드리겠습니다.',
     });
   } catch (error) {
-    console.error('Error processing consultation request:', error);
+    console.error('[Consultation] ERROR processing request:', error.message);
     return res.status(500).json({
       success: false,
       message: '일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
@@ -158,9 +170,42 @@ async function sendToTelegram(botToken, chatId, message) {
       }),
     });
 
-    return response;
+    // Check HTTP status
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`[Telegram] HTTP Error ${response.status}:`, errorText);
+      return {
+        success: false,
+        error: `HTTP ${response.status}: ${errorText}`,
+      };
+    }
+
+    // Parse JSON response
+    const data = await response.json();
+
+    // Check Telegram API response
+    if (!data.ok) {
+      console.error('[Telegram] API Error:', {
+        error_code: data.error_code,
+        description: data.description,
+      });
+      return {
+        success: false,
+        error: `Telegram API error: ${data.description || 'Unknown error'}`,
+      };
+    }
+
+    // Success
+    console.log('[Telegram] Message sent successfully. Message ID:', data.result.message_id);
+    return {
+      success: true,
+      messageId: data.result.message_id,
+    };
   } catch (error) {
-    console.error('Telegram API call failed:', error);
-    return { ok: false, error };
+    console.error('[Telegram] Fetch error:', error.message);
+    return {
+      success: false,
+      error: `Network error: ${error.message}`,
+    };
   }
 }
